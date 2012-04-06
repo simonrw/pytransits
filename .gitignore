@@ -5,3 +5,4 @@ build
 lightcurve.pdf
 *.pyc
 *.DS_Store
+plots

@@ -2,6 +2,10 @@ from Modelgen import *
 import numpy as np
 import matplotlib.pyplot as plt
 
+jd = np.linspace(0, 3.2, 1000)
+jd += 2454508.2
+
+
 def generate_model():
     m = PyModel()
     m.id = 0
@@ -24,20 +28,15 @@ def generate_model():
 def test_generation():
     m = generate_model()
 
-    jd = np.linspace(0, 3.2, 1000)
-    jd += 2454508.2
-
     flux = PyGenerateSynthetic(jd, m)
     assert len(flux)
 
     for f in flux:
         assert f
 
+
 def test_plot_lightcurve():
     m = generate_model()
-
-    jd = np.linspace(0, 3.2, 1000)
-    jd += 2454508.2
 
     flux = PyGenerateSynthetic(jd, m)
 

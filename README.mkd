@@ -1,11 +1,29 @@
-Readme for project by Simon Walker
-===================
+# PyTransits
 
-Description
-------------
+A python transit synthesis program for generating synthetic lightcurves for transiting exoplanets. 
 
-Requirements
-------------
+## Method
 
+This code uses the Mandel & Agol model of transiting exoplanets. The limb darkening coefficients must be calculated separately and the following parameters must be given: 
 
+* Orbital period (period)
+* Orbital epoch (time of mid transit, epoch)
+* Orbital separation (a)
+* Orbital inclination (i)
+* Planetary radius (rp)
+* Stellar mass (ms)
+* Stellar radius (rs)
+* Stellar temperature (teff)
+* c1
+* c2
+* c3
+* c4
+
+In brackets are the computational parameters.
+
+A `PyModel` object is created with the above parameters. All must be present, otherwise the generator won't work. 
+
+The time values are specified in JD and the model parameter is explained above. 
+
+The return is the model flux, which is normalised so that the out of transit data is at a value of 1.
 

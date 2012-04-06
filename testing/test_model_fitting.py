@@ -25,8 +25,3 @@ def test_get_data():
     fluxerr = data['fluxerr']
 
     assert (jd.size == flux.size == fluxerr.size) > 0
-
-    plt.clf()
-    plt.errorbar(jd, flux, fluxerr, ls='none')
-    plt.plot(jd, flux, 'r.')
-    plt.show()

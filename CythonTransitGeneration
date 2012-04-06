@@ -5,11 +5,70 @@ import sys
 #import os.path
 import argparse
 #from subprocess import Popen, call, PIPE, STDOUT
-#import matplotlib.pyplot as plt
-#import numpy as np
+import matplotlib.pyplot as plt
+import numpy as np
 #import srw
 #import pyfits
+from srw import exodb
+from Modelgen import *
+import multiprocessing
 #from ppgplot import *
+
+ndays = 10
+npoints = 1000
+jd = np.linspace(0, ndays, npoints)
+jd += 2454508.2
+
+
+def models_from_db():
+    return exodb.queryForColumns(
+                ['system.period', 'system.epoch', 'system.a',
+                    'star.radius', 'system.i', 'planet.radius',
+                    'star.mass', 'star.teff', 'planet.name'], ignore_koi=True)
+
+
+def toPhase(jd, epoch, period):
+    phase = (np.abs(jd - epoch) / period) % 1
+    phase[phase > 0.8] -= 1.0
+    return phase
+
+
+def analyse_data(row):
+    try:
+        m = PyModel()
+        m.id = 0
+        m.submodel_id = 0
+        m.period = float(row[0])
+        m.epoch = float(row[1])
+        m.a = float(row[2])
+        m.rs = float(row[3])
+        m.i = float(row[4])
+        m.rp = float(row[5])
+        m.mstar = float(row[6])
+        m.teff = float(row[7])
+
+        m.c1 = 0.5
+        m.c2 = -0.2
+        m.c3 = 0.1
+        m.c4 = 0.
+
+        name = row[-1]
+
+    except ValueError:
+        pass
+    except TypeError:
+        pass
+    else:
+        clean_name = name.replace(" ", "")
+        print "Plotting %s" % clean_name
+        flux = PyGenerateSynthetic(jd, m)
+        plt.clf()
+        plt.plot(toPhase(jd, m.epoch, m.period), flux, 'r.')
+        plt.title(name)
+        plt.ylim(ymin=0.95)
+        plt.xlim(-0.2, 0.8)
+        plt.savefig("plots/%s.png" % clean_name)
+        plt.close()
 
 
 class App(object):
@@ -29,7 +88,15 @@ class App(object):
         '''
         Main function
         '''
-        print 'Hello world!'
+        models = models_from_db()
+
+        p = multiprocessing.Pool()
+        p.map(analyse_data, models)
+
+
+
+
+
 
 if __name__ == '__main__':
     try:

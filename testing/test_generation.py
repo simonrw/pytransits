@@ -46,12 +46,12 @@ def test_plot_lightcurve():
 
 
 def test_bad_arguments():
-    with pytest.raises(RuntimeError) as e:
+    with pytest.raises(TypeError) as e:
         PyGenerateSynthetic(jd, [1, 2, 3])
 
     assert "PyModel" in str(e)
 
-    with pytest.raises(RuntimeError) as e:
+    with pytest.raises(TypeError) as e:
         PyGenerateSynthetic("hello", generate_model())
 
     assert "numpy array" in str(e)

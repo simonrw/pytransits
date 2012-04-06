@@ -1,0 +1,6 @@
+*.swp
+Modelgen.cpp
+Modelgen.so
+build
+lightcurve.pdf
+*.pyc

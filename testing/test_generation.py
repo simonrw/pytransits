@@ -1,5 +1,6 @@
-from Modelgen import *
+from Modelgen import PyModel, PyGenerateSynthetic
 import numpy as np
+import pytest
 import matplotlib.pyplot as plt
 
 jd = np.linspace(0, 3.2, 1000)
@@ -42,3 +43,15 @@ def test_plot_lightcurve():
 
     plt.plot(jd, flux, 'ro')
     plt.savefig("lightcurve.pdf")
+
+
+def test_bad_arguments():
+    with pytest.raises(RuntimeError) as e:
+        PyGenerateSynthetic(jd, [1, 2, 3])
+
+    assert "PyModel" in str(e)
+
+    with pytest.raises(RuntimeError) as e:
+        PyGenerateSynthetic("hello", generate_model())
+
+    assert "numpy array" in str(e)

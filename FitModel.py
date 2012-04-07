@@ -3,7 +3,10 @@
 
 from Modelgen import PyModel, PyGenerateSynthetic
 import numpy as np
+from numpy.random import normal, random
+import matplotlib.pyplot as plt
 import pyfits
+from srw import exodb
 
 
 def fit_goodness(flux, fluxerr, model_flux):

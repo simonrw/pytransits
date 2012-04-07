@@ -33,3 +33,29 @@ def get_data(filename):
             'flux': photometry.field('tamflux2'),
             'fluxerr': photometry.field('tamflux2_err'),
             }
+
+def get_catalogue_data(planet_name):
+    results = exodb.queryForColumns([
+        'planet.name', 'system.period', 'system.epoch',
+        'system.a', 'system.i', 'star.radius', 'planet.radius',
+        'star.mass', 'star.teff'],
+        where='replace(planet.name, " ", "") = "%s"' %
+            planet_name.replace(" ", ""))
+
+    if len(results):
+        results = results[0]
+
+        m = PyModel()
+        m.period = float(results[1])
+        m.epoch = float(results[2])
+        m.a = float(results[3])
+        m.i = float(results[4])
+        m.rs = float(results[5])
+        m.rp = float(results[6])
+        m.mstar = float(results[7])
+        m.teff = float(results[8])
+
+        return m
+    else:
+        raise RuntimeError("Cannot create planet model")
+

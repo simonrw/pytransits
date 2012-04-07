@@ -34,6 +34,7 @@ def get_data(filename):
             'fluxerr': photometry.field('tamflux2_err'),
             }
 
+
 def get_catalogue_data(planet_name):
     results = exodb.queryForColumns([
         'planet.name', 'system.period', 'system.epoch',
@@ -59,3 +60,59 @@ def get_catalogue_data(planet_name):
     else:
         raise RuntimeError("Cannot create planet model")
 
+
+if __name__ == '__main__':
+    nIter = 1000
+
+    init = get_catalogue_data("WASP-12 b")
+    data = get_data('data/wasp12.fits')
+
+    jd = np.array(data['jd'], dtype=np.float64)
+    flux = data['flux']
+    fluxerr = data['fluxerr']
+
+    weights = 1. / fluxerr ** 2
+    meanflux = np.average(flux, weights=weights)
+
+    phase = (np.abs(jd - init.epoch) / init.period) % 1
+    phase[phase > 0.8] -= 1.0
+
+    flux /= meanflux
+
+    model = PyGenerateSynthetic(jd, init)
+
+    # Get the initial prob
+    P = fit_goodness(flux, fluxerr, model)
+
+    print "Initial P: %f" % P
+    i = 0
+    for i in xrange(nIter):
+        new_model = PyModel()
+        new_model.period = normal(init.period, 0.5)
+        new_model.epoch = normal(init.epoch, 1.0)
+        new_model.a = normal(init.a, 0.01)
+        new_model.rs = normal(init.rs, 0.1)
+        new_model.i = normal(init.period, 0.3)
+        new_model.rp = normal(init.rp, 0.1)
+        new_model.mstar = normal(init.mstar, 0.1)
+        new_model.teff = normal(init.teff, 100.)
+
+        new_P = fit_goodness(flux, fluxerr,
+                PyGenerateSynthetic(jd, new_model)
+                )
+
+        a_ratio = new_P / P
+        if a_ratio < 1. or random() <= a_ratio:
+            # Accept the change
+            P = new_P
+            init = new_model
+
+        if i % 10 == 0:
+            print "Iteration %d" % i
+
+    print "Final P: %f" % P
+
+    model = PyGenerateSynthetic(jd, init)
+    plt.plot(phase, flux, 'r.')
+    plt.plot(phase, model, 'g.')
+    plt.show()

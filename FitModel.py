@@ -5,8 +5,10 @@ from Modelgen import PyModel, PyGenerateSynthetic
 import numpy as np
 from numpy.random import normal, random
 import matplotlib.pyplot as plt
+import os.path
 import pyfits
 from srw import exodb
+from PyLDC.LDC import PyLDC
 
 
 def fit_goodness(flux, fluxerr, model_flux):
@@ -55,6 +57,22 @@ def get_catalogue_data(planet_name):
         m.rp = float(results[6])
         m.mstar = float(results[7])
         m.teff = float(results[8])
+
+        ldc = PyLDC(
+                os.path.join(
+                    os.path.expanduser("~"),
+                    "work",
+                    "ReferenceDatabase",
+                    "Reference.db"),
+                6
+                )
+
+        coeffs = ldc.coefficients(m.teff)
+
+        m.c1 = coeffs[0]
+        m.c2 = coeffs[1]
+        m.c3 = coeffs[2]
+        m.c4 = coeffs[3]
 
         return m
     else:

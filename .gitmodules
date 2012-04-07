@@ -1,3 +1,6 @@
 [submodule "Modelgen"]
 	path = Modelgen
 	url = git@github.com:mindriot101/ModelGeneration.git
+[submodule "PyLDC"]
+	path = PyLDC
+	url = git@github.com:mindriot101/PyLDC.git

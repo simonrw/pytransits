@@ -13,8 +13,11 @@ def fit_goodness(flux, fluxerr, model_flux):
 
     assert flux.size == fluxerr.size == model_flux.size
 
+    meanflux = np.average(flux, weights=1. / fluxerr ** 2)
+    normflux = flux / meanflux
+
     # Do the chi square test
-    return np.sum(((flux - model_flux) / fluxerr) ** 2)
+    return np.sum(((normflux - model_flux) / fluxerr) ** 2)
 
 
 def get_data(filename):

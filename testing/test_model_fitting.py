@@ -1,4 +1,4 @@
-from FitModel import fit_goodness, get_data, get_catalogue_data
+from FitModel import fit_goodness, get_data, get_catalogue_data, alter
 from Modelgen import PyModel
 import pytest
 import numpy as np
@@ -39,3 +39,46 @@ def test_bad_data_retrieval():
         get_catalogue_data('badplanetname')
 
     assert 'planet model' in str(e)
+
+
+def test_random_number_gen_nonnegative():
+    orig = 1.
+
+    nez = 0
+    for i in xrange(10000):
+        newval = alter(orig, 1000., alter=True)
+        assert newval > 0
+        if newval != 1.:
+            nez += 1
+
+    assert nez > 0
+
+
+def test_random_non_alter():
+    val = 10.
+
+    neq = 0
+    for i in xrange(10000):
+        newval = alter(val, 1000., alter=False)
+
+        if newval != val:
+            neq += 1
+
+    assert neq == 0
+
+
+
+def test_random_number_gen_negative():
+    orig = 1.
+    lz = 0
+    nez = 0
+    for i in xrange(10000):
+            newval = alter(orig, 1000., alter=True, negative=True)
+            if newval <= 0:
+                lz += 1
+
+            if newval != 1.:
+                nez += 1
+
+    assert lz > 0
+    assert nez > 0

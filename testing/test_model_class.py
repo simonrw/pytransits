@@ -1,4 +1,4 @@
-from Modelgen import PyModel
+from _Modelgen import PyModel
 
 
 def test_id():

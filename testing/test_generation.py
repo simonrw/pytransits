@@ -1,4 +1,4 @@
-from Modelgen import PyModel, PyGenerateSynthetic
+from _Modelgen import PyModel, PyGenerateSynthetic
 import numpy as np
 import pytest
 import matplotlib.pyplot as plt

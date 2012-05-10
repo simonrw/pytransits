@@ -6,3 +6,5 @@ lightcurve.pdf
 *.pyc
 *.DS_Store
 plots
+_Modelgen.cpp
+_Modelgen.so

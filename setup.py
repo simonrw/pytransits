@@ -7,7 +7,7 @@ from numpy import get_include
 
 
 setup(ext_modules=[Extension(
-    "Modelgen", ['Modelgen.pyx', 'Modelgen/src/GenerateModel.cpp'],
+    "_Modelgen", ['_Modelgen.pyx', 'Modelgen/src/GenerateModel.cpp'],
     language="c++", include_dirs=['Modelgen/include', get_include()]), ],
     cmdclass={'build_ext': build_ext, }
     )

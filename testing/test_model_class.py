@@ -1,4 +1,4 @@
-from _Modelgen import PyModel
+from transitgen._Modelgen import PyModel
 
 
 def test_id():

@@ -1,5 +1,5 @@
 from FitModel import fit_goodness, get_data, get_catalogue_data, alter
-from _Modelgen import PyModel
+from transitgen._Modelgen import PyModel
 import pytest
 import numpy as np
 

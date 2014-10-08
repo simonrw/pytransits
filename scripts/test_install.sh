@@ -8,7 +8,7 @@ setup() {
     conda create --yes --quiet -p ${ENVDIR} pip pytest ipython numpy matplotlib scipy pandas cython
     source activate ${ENVDIR}
 
-    test -d build && rm -r build
+    test -d build && rm -r build || true
 }
 
 teardown() {

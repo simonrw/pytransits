@@ -11,5 +11,8 @@ class Model(_Modelgen.PyModel):
             setattr(m, key, params[key])
         return m
 
-    def __getattr__(self, attr):
-        return getattr(self._model, attr)
+    def set_ldc(self, ldc):
+        attrs = ['c1', 'c2', 'c3', 'c4']
+        for (attr, value) in zip(attrs, ldc):
+            setattr(self, attr, value)
+

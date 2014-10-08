@@ -18,3 +18,12 @@ def test_class_constructor():
     for i, param in enumerate(model_params):
         assert getattr(m, param) == i
 
+
+def test_set_ldc():
+    m = Model()
+    m.set_ldc([1, 2, 3, 4])
+
+    assert m.c1 == 1
+    assert m.c2 == 2
+    assert m.c3 == 3
+    assert m.c4 == 4

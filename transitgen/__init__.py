@@ -2,10 +2,7 @@ import _Modelgen
 
 __all__ = ['Model', ]
 
-class Model(object):
-    def __init__(self):
-        self._model = _Modelgen.PyModel()
-
+class Model(_Modelgen.PyModel):
     @classmethod
     def from_params(cls, params):
         m = cls()

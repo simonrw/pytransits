@@ -12,3 +12,4 @@ venv
 tmp/*
 !tmp/.gitkeep
 *.egg-info
+*.log

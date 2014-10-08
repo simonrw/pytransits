@@ -5,7 +5,7 @@ set -e
 setup() {
     ENVDIR=${PWD}/venv
     test -d ${ENVDIR} && rm -r ${ENVDIR}
-    conda create --yes --quiet -p ${ENVDIR} pip pytest ipython numpy matplotlib scipy pandas cython
+    conda create --yes --quiet -p ${ENVDIR} pip pytest ipython cython numpy
     source activate ${ENVDIR}
 
     test -d build && rm -r build || true

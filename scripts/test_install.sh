@@ -18,12 +18,12 @@ teardown() {
 
 main() {
     echo "Setting up"
-    setup >/dev/null
+    setup
     echo "Installing"
     pip install .
     echo "Running test"
     python -c 'import transitgen'
-    teardown >/dev/null
+    teardown
 }
 
 trap teardown EXIT

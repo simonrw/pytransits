@@ -7,7 +7,6 @@ class Model(_Modelgen.PyModel):
     def from_params(cls, params):
         m = cls()
         for key in params:
-            print(key)
             setattr(m, key, params[key])
         return m
 

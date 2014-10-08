@@ -3,6 +3,9 @@ import _Modelgen
 __all__ = ['Model', 'generate_synthetic']
 
 class Model(_Modelgen.PyModel):
+    def __init__(self, *args, **kwargs):
+        super(Model, self).__init__(*args, **kwargs)
+
     @classmethod
     def from_params(cls, params):
         m = cls()

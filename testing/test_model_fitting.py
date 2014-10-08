@@ -1,7 +1,14 @@
-from FitModel import fit_goodness, get_data, get_catalogue_data, alter
-from transitgen._Modelgen import PyModel
+# -*- coding: utf-8 -*-
+
 import pytest
+
+try:
+    from FitModel import fit_goodness, get_data, get_catalogue_data, alter
+except ImportError:
+    pytestmark = pytest.mark.skipif(True, reason='Cannot import FitModel')
+from transitgen._Modelgen import PyModel
 import numpy as np
+
 
 
 def check_close(val1, val2, toler):

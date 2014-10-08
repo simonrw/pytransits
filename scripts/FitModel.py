@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from _Modelgen import PyModel, PyGenerateSynthetic
+from transitgen._Modelgen import PyModel, PyGenerateSynthetic
 import numpy as np
 from numpy.random import normal, random
 import copy

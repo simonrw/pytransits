@@ -11,22 +11,8 @@ ext_modules = [
     Extension('{}._Modelgen'.format(package_name),
               ['{}/_Modelgen.pyx'.format(package_name),
                'Modelgen/src/GenerateModel.cpp'],
-               language='c++',
-               include_dirs=['Modelgen/include', get_include()],
-               libraries=['stdc++',])]
-
-
-
-
-
-
-
-
-    # Extension(
-    #     '{}._Modelgen'.format(package_name),
-    #     ['{}/_Modelgen.pyx'.format(package_name),
-    #         'Modelgen/src/GenerateModel.cpp'],
-    #     language='c++', include_dirs=['Modelgen/include', get_include()]),
+              language='c++',
+              include_dirs=['Modelgen/include', get_include()],)]
 
 
 setup(name=package_name,

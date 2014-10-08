@@ -11,3 +11,4 @@ _Modelgen.so
 venv
 tmp/*
 !tmp/.gitkeep
+*.egg-info

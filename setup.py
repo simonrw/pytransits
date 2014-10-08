@@ -13,7 +13,7 @@ ext_modules = [
                'Modelgen/src/GenerateModel.cpp'],
                language='c++',
                include_dirs=['Modelgen/include', get_include()],
-               libraries=['c++',])]
+               libraries=['stdc++',])]
 
 
 

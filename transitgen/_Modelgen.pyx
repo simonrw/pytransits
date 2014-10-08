@@ -175,14 +175,17 @@ cdef Model convertModel(PyModel m):
     out.teff = m.teff
     return out
 
-
-def PyGenerateSynthetic(jd, m):
-    if type(m) != PyModel:
+def _check_types(jd, m):
+    if not isinstance(m, PyModel):
         raise TypeError("model object must be of type PyModel")
 
     if type(jd) != np.ndarray:
         raise TypeError("jd must be a numpy array")
 
+    return True
+
+def PyGenerateSynthetic(jd, m):
+    _check_types(jd, m)
     cdef vector[double] vec_jd = arrayToVector(jd)
     cdef Model model = convertModel(m)
 

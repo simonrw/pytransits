@@ -27,3 +27,8 @@ def test_set_ldc():
     assert m.c2 == 2
     assert m.c3 == 3
     assert m.c4 == 4
+
+def test_types_match():
+    from transitgen._Modelgen import _check_types
+    from numpy import arange
+    assert _check_types(arange(10), Model())

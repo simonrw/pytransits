@@ -4,6 +4,7 @@ from setuptools import setup
 from setuptools.extension import Extension
 from Cython.Build import cythonize
 from numpy import get_include
+import os
 
 package_name = 'transitgen'
 

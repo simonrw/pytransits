@@ -7,12 +7,16 @@ from numpy import get_include
 
 package_name = 'transitgen'
 
+libraries = ['stdc++'] if os.uname()[0] == 'Darwin' else []
+
 ext_modules = [
     Extension('{}._Modelgen'.format(package_name),
               ['{}/_Modelgen.pyx'.format(package_name),
                'Modelgen/src/GenerateModel.cpp'],
               language='c++',
-              include_dirs=['Modelgen/include', get_include()],)]
+              include_dirs=['Modelgen/include', get_include()],
+              libraries=libraries,
+              )]
 
 
 setup(name=package_name,

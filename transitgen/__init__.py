@@ -16,3 +16,5 @@ class Model(_Modelgen.PyModel):
         for (attr, value) in zip(attrs, ldc):
             setattr(self, attr, value)
 
+def generate_synthetic(jd, model):
+    return _Modelgen.PyGenerateSynthetic(jd, model)

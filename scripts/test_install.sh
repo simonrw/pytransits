@@ -21,8 +21,7 @@ main() {
     echo "Installing"
     pip install .
     echo "Running test"
-    python -c 'import transitgen'
-    teardown
+    (cd tmp && python -c 'import transitgen')
 }
 
 trap teardown EXIT

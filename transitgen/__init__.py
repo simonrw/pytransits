@@ -1,6 +1,6 @@
 import _Modelgen
 
-__all__ = ['Model', ]
+__all__ = ['Model', 'generate_synthetic']
 
 class Model(_Modelgen.PyModel):
     @classmethod

@@ -13,7 +13,6 @@ setup() {
 
 teardown() {
     source deactivate
-    rm -rf ${ENVDIR}
 }
 
 main() {

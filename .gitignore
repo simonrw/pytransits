@@ -9,3 +9,5 @@ plots
 _Modelgen.cpp
 _Modelgen.so
 venv
+tmp/*
+!tmp/.gitkeep
